@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Happy Birthday MANHA 🖤</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background: black;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
+
+.slide {
+  display: none;
+  height: 100vh;
+  padding: 80px 20px;
+}
+
+.active {
+  display: block;
+  animation: fade 1.5s ease-in-out;
+}
+
+@keyframes fade {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+h1 {
+  font-size: 40px;
+  letter-spacing: 2px;
+}
+
+p {
+  font-size: 20px;
+  max-width: 600px;
+  margin: auto;
+  line-height: 1.6;
+}
+
+button {
+  margin-top: 40px;
+  padding: 12px 25px;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: white;
+  color: black;
+}
+
+.heart {
+  position: fixed;
+  color: red;
+  animation: float 5s linear infinite;
+  font-size: 20px;
+}
+
+@keyframes float {
+  0% {transform: translateY(100vh);}
+  100% {transform: translateY(-10vh);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="slide active">
+  <h1>Happy Birthday MANHA 🖤</h1>
+  <p>The most beautiful chapter of my life began with you.</p>
+  <button onclick="nextSlide()">Next ➜</button>
+</div>
+
+<div class="slide">
+  <h1>My Forever Girl 🌙</h1>
+  <p>No matter how far we are, my heart beats only for you.</p>
+  <button onclick="nextSlide()">Next ➜</button>
+</div>
+
+<div class="slide">
+  <h1>You Are My Peace ✨</h1>
+  <p>In this chaotic world, you are my calm, my home, my everything.</p>
+  <button onclick="nextSlide()">Next ➜</button>
+</div>
+
+<div class="slide">
+  <h1>I Love You, MANHA ❤️</h1>
+  <p>And I promise… this is just the beginning of our forever.</p>
+</div>
+
+<script>
+let slides = document.querySelectorAll('.slide');
+let current = 0;
+
+function nextSlide() {
+  slides[current].classList.remove('active');
+  current++;
+  slides[current].classList.add('active');
+}
+
+// Floating hearts
+setInterval(() => {
+  let heart = document.createElement("div");
+  heart.className = "heart";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.innerHTML = "❤";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}, 800);
+</script>
+
+</body>
+</html>
