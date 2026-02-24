@@ -8,13 +8,11 @@
   :root { --neon-pink: #ff69b4; --glow: rgba(255, 105, 180, 0.6); }
   
   body { 
-    margin: 0; 
-    font-family: 'Poppins', sans-serif; 
+    margin: 0; font-family: 'Poppins', sans-serif; 
     background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%); 
     color: white; text-align: center; overflow: hidden; height: 100vh;
   }
 
-  /* Animated Stars Background */
   body::before {
     content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background: url('https://www.transparenttextures.com/patterns/stardust.png');
@@ -26,11 +24,7 @@
     position: relative; z-index: 10; flex-direction: column; justify-content: center; align-items: center; 
   }
 
-  /* Glowing Slide Transition */
-  .active { 
-    display: flex; 
-    animation: dreamyTransition 1.2s cubic-bezier(0.4, 0, 0.2, 1); 
-  }
+  .active { display: flex; animation: dreamyTransition 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
   
   @keyframes dreamyTransition { 
     0% { opacity: 0; filter: blur(15px); transform: scale(1.1); } 
@@ -45,31 +39,38 @@
     box-shadow: 0 0 30px var(--glow); margin: 15px 0; 
   }
 
-  .typewriter { font-size: 14px; color: #ffd1dc; opacity: 0.9; font-style: italic; }
+  /* Randomly Positioned Candles */
+  .candle-area { position: relative; width: 300px; height: 250px; margin: 20px 0; }
+  .candle { 
+    position: absolute; font-size: 35px; cursor: pointer; transition: 0.5s; 
+    filter: drop-shadow(0 0 5px gold);
+  }
+
+  /* Magic Glow for Candles */
+  .candle.lit { 
+    animation: magicBlink 0.5s infinite alternate; 
+    filter: drop-shadow(0 0 20px white) drop-shadow(0 0 40px var(--neon-pink));
+  }
+  @keyframes magicBlink { 
+    0% { transform: scale(1) rotate(0); } 
+    100% { transform: scale(1.2) rotate(5deg); } 
+  }
+
+  /* Sparkle Effect */
+  .sparkle {
+    position: absolute; pointer-events: none; color: gold; font-size: 20px;
+    animation: sparkleAnim 1s forwards; z-index: 100;
+  }
+  @keyframes sparkleAnim {
+    0% { transform: scale(0) translate(0,0); opacity: 1; }
+    100% { transform: scale(1.5) translate(var(--x), var(--y)); opacity: 0; }
+  }
 
   button.next-btn { 
     margin-top: 25px; padding: 14px 45px; border: none; 
     background: linear-gradient(45deg, #ff69b4, #ff1493); 
     color: white; border-radius: 50px; cursor: pointer; font-weight: bold; 
     box-shadow: 0 5px 20px rgba(255, 20, 147, 0.5); text-transform: uppercase; transition: 0.3s; 
-  }
-
-  /* Burst Star Animation */
-  .burst-star {
-    position: absolute; pointer-events: none; background: white; border-radius: 50%;
-    box-shadow: 0 0 10px white, 0 0 20px var(--neon-pink);
-    animation: starBurst 1s forwards; z-index: 100;
-  }
-  @keyframes starBurst {
-    0% { transform: scale(0) translateY(0); opacity: 1; }
-    100% { transform: scale(1) translateY(-100px); opacity: 0; }
-  }
-
-  .floating-item { position: absolute; color: var(--neon-pink); animation: float 6s linear infinite; pointer-events: none; z-index: 5; }
-  @keyframes float { 
-    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; } 
-    10% { opacity: 1; }
-    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } 
   }
 </style>
 </head>
@@ -80,48 +81,48 @@
 <div class="slide active">
   <h1>MY PRETTIEST GIRL</h1>
   <img src="pic1.jpg.JPEG">
-  <div class="typewriter">To the one who owns my heart...</div>
+  <p>To the one who owns my heart...</p>
   <button class="next-btn" onclick="triggerMagic()">Start Story ➜</button>
 </div>
 
 <div class="slide">
   <h1>THE DAY WE MET 🥹</h1>
   <img src="pic2.jpg.jpg">
-  <div class="typewriter">A day I'll never forget.</div>
+  <p>A day I'll never forget.</p>
   <button class="next-btn" onclick="nextSlide()">Continue ❤️</button>
 </div>
 
 <div class="slide">
   <h1>MAKE A WISH, BABE 🎂</h1>
-  <div style="display:flex; gap:12px; margin:15px 0; background:rgba(255,255,255,0.05); padding:20px; border-radius:30px; border:1px solid rgba(255,105,180,0.3);">
-    <span style="font-size:30px; cursor:pointer;" onclick="this.innerHTML='💨'; this.style.opacity='0.5'">🕯️</span>
-    <span style="font-size:30px; cursor:pointer;" onclick="this.innerHTML='💨'; this.style.opacity='0.5'">🕯️</span>
-    <span style="font-size:30px; cursor:pointer;" onclick="this.innerHTML='💨'; this.style.opacity='0.5'">🕯️</span>
-    <span style="font-size:30px; cursor:pointer;" onclick="this.innerHTML='💨'; this.style.opacity='0.5'">🕯️</span>
-    <span style="font-size:30px; cursor:pointer;" onclick="this.innerHTML='💨'; this.style.opacity='0.5'">🕯️</span>
+  <div class="candle-area">
+    <span class="candle" style="top:10%; left:20%;" onclick="ignite(this)">🕯️</span>
+    <span class="candle" style="top:50%; left:70%;" onclick="ignite(this)">🕯️</span>
+    <span class="candle" style="top:80%; left:10%;" onclick="ignite(this)">🕯️</span>
+    <span class="candle" style="top:20%; left:80%;" onclick="ignite(this)">🕯️</span>
+    <span class="candle" style="top:60%; left:30%;" onclick="ignite(this)">🕯️</span>
   </div>
-  <div class="typewriter">Close your eyes and wish...</div>
+  <p>Tap each candle to light up your wish! ✨</p>
   <button class="next-btn" onclick="nextSlide()">I Wished ❤️</button>
 </div>
 
 <div class="slide">
   <h1>WITH YOUU BABE 💝</h1>
   <img src="pic3.jpg.jpg">
-  <div class="typewriter">My favorite place is inside your hug.</div>
+  <p>My favorite place is inside your hug.</p>
   <button class="next-btn" onclick="nextSlide()">More ❤️</button>
 </div>
 
 <div class="slide">
   <h1>NEVER FORGOT 🌸</h1>
   <img src="pic4.jpg.JPEG">
-  <div class="typewriter">Forever isn't long enough with you.</div>
+  <p>Forever isn't long enough with you.</p>
   <button class="next-btn" onclick="nextSlide()">Next ❤️</button>
 </div>
 
 <div class="slide">
   <h1>HAPPIEE HAPPIEEE 🎀</h1>
   <img src="pic5.jpg.JPEG">
-  <div class="typewriter">You are my sunshine.</div>
+  <p>You are my sunshine.</p>
   <button class="next-btn" onclick="nextSlide()">Final Surprise ❤️</button>
 </div>
 
@@ -143,19 +144,7 @@
 
   function triggerMagic() {
     music.play();
-    // Create burst of stars
-    for(let i=0; i<30; i++) {
-      setTimeout(() => {
-        const s = document.createElement('div');
-        s.className = 'burst-star';
-        s.style.left = Math.random() * 100 + 'vw';
-        s.style.top = Math.random() * 100 + 'vh';
-        s.style.width = s.style.height = Math.random() * 5 + 2 + 'px';
-        document.body.appendChild(s);
-        setTimeout(() => s.remove(), 1000);
-      }, i * 20);
-    }
-    setTimeout(nextSlide, 500);
+    nextSlide();
   }
 
   function nextSlide() {
@@ -164,19 +153,27 @@
     slides[currentSlide].classList.add('active');
   }
 
-  setInterval(() => {
-    const item = document.createElement('div');
-    item.classList.add('floating-item');
-    item.innerHTML = ['❤️','✨','🌸','💖'][Math.floor(Math.random()*4)];
-    item.style.left = Math.random() * 100 + 'vw';
-    item.style.fontSize = Math.random() * 15 + 15 + 'px';
-    item.style.animationDuration = Math.random() * 3 + 4 + 's';
-    document.body.appendChild(item);
-    setTimeout(() => item.remove(), 6000);
-  }, 400);
+  function ignite(el) {
+    el.classList.add('lit');
+    el.innerHTML = "✨"; // Becomes a star
+    
+    // Create multiple sparkles
+    for(let i=0; i<8; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.innerHTML = '⭐';
+      s.style.left = el.offsetLeft + 'px';
+      s.style.top = el.offsetTop + 'px';
+      s.style.setProperty('--x', (Math.random()*100 - 50) + 'px');
+      s.style.setProperty('--y', (Math.random()*100 - 50) + 'px');
+      el.parentElement.appendChild(s);
+      setTimeout(() => s.remove(), 1000);
+    }
+  }
 </script>
 </body>
 </html>
+
 
 
 
