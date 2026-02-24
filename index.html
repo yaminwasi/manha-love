@@ -8,30 +8,28 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <style>
   :root { --pink: #ff69b4; --soft-pink: #fce4ec; --glow: rgba(255, 105, 180, 0.4); }
-  body { margin: 0; font-family: 'Poppins', sans-serif; background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%); color: white; text-align: center; overflow: hidden; height: 100vh; cursor: crosshair; }
+  body { margin: 0; font-family: 'Poppins', sans-serif; background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%); color: white; text-align: center; overflow: hidden; height: 100vh; }
 
   .slide { display: none; height: 100vh; padding: 20px; box-sizing: border-box; position: relative; z-index: 10; flex-direction: column; justify-content: center; align-items: center; }
   .active { display: flex; animation: slideReveal 1.5s ease-out; }
   @keyframes slideReveal { 0% { opacity: 0; filter: blur(15px); } 100% { opacity: 1; filter: blur(0); } }
 
   h1 { font-family: 'Dancing Script', cursive; font-size: 38px; color: var(--pink); margin-bottom: 10px; font-weight: 700; text-shadow: 0 0 10px var(--glow); }
-  .quote { font-style: italic; font-size: 17px; color: var(--soft-pink); max-width: 80%; line-height: 1.6; font-weight: 300; }
   .caption { font-size: 14px; color: #ffd1dc; margin-top: 10px; font-style: italic; opacity: 0.9; }
   
-  /* Heartbeat Image Effect */
   img { width: 100%; max-width: 240px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 15px 35px rgba(0,0,0,0.5); margin: 10px 0; animation: heartPulse 3s infinite ease-in-out; }
   @keyframes heartPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
 
   .scatter-container { position: relative; width: 320px; height: 350px; margin: 10px auto; }
-  .candle, .gift-box { position: absolute; cursor: pointer; transition: 0.4s ease; }
+  .candle, .gift-box { position: absolute; cursor: pointer; transition: 0.4s ease; z-index: 20; }
   
-  /* Readable Floating Wishes */
-  .wish-text { position: absolute; pointer-events: none; color: #ffffff; font-family: 'Dancing Script', cursive; font-size: 24px; font-weight: bold; white-space: nowrap; animation: flyVerySlow 8s forwards ease-out; z-index: 100; text-shadow: 0 0 12px #ff1493, 0 0 5px rgba(0,0,0,0.8); }
-  @keyframes flyVerySlow { 0% { transform: translate(-50%, 0); opacity: 0; filter: blur(5px); } 10% { opacity: 1; filter: blur(0); } 85% { opacity: 1; filter: blur(0); } 100% { transform: translate(-50%, -350px); opacity: 0; filter: blur(10px); } }
+  /* Gift Box Style */
+  .gift-box { width: 80px; height: 80px; background: url('https://cdn-icons-png.flaticon.com/512/4213/4213958.png') no-repeat center/contain; filter: drop-shadow(0 0 5px var(--glow)); }
+  .candle { font-size: 30px; }
 
-  /* Magic Tap Hearts */
-  .tap-heart { position: absolute; color: var(--pink); pointer-events: none; animation: heartFly 1.5s linear forwards; font-size: 20px; z-index: 9999; }
-  @keyframes heartFly { 0% { transform: translateY(0) scale(0); opacity: 1; } 100% { transform: translateY(-100px) scale(1.5); opacity: 0; } }
+  /* Floating Wishes Animation */
+  .wish-text { position: absolute; pointer-events: none; color: #ffffff; font-family: 'Dancing Script', cursive; font-size: 24px; font-weight: bold; white-space: nowrap; animation: flyVerySlow 8s forwards ease-out; z-index: 100; text-shadow: 0 0 12px #ff1493, 0 0 5px rgba(0,0,0,0.8); left: 50%; }
+  @keyframes flyVerySlow { 0% { transform: translate(-50%, 0); opacity: 0; filter: blur(5px); } 10% { opacity: 1; filter: blur(0); } 85% { opacity: 1; filter: blur(0); } 100% { transform: translate(-50%, -350px); opacity: 0; filter: blur(10px); } }
 
   .falling { position: absolute; pointer-events: none; animation: fall linear infinite; z-index: 5; opacity: 0.5; }
   @keyframes fall { from { transform: translateY(-10vh) rotate(0); } to { transform: translateY(110vh) rotate(360deg); } }
@@ -39,8 +37,7 @@
   .love-you-final { font-family: 'Dancing Script', cursive; font-size: 32px; color: var(--pink); text-shadow: 0 0 20px var(--pink); margin: 15px 0; animation: heartBeat 1.5s infinite; }
   @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
-  button.next-btn { margin-top: 20px; padding: 12px 45px; border: none; background: linear-gradient(45deg, #ff69b4, #ff1493); color: white; border-radius: 50px; cursor: pointer; font-size: 13px; font-weight: 600; box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4); transition: 0.3s; }
-  button.next-btn:hover { transform: scale(1.05); }
+  button.next-btn { margin-top: 20px; padding: 12px 45px; border: none; background: linear-gradient(45deg, #ff69b4, #ff1493); color: white; border-radius: 50px; cursor: pointer; font-size: 13px; font-weight: 600; box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4); }
 </style>
 </head>
 <body onclick="createHeart(event)">
@@ -52,11 +49,6 @@
   <img src="pic1.jpg.JPEG">
   <p class="caption">"The one who owns my heart..."</p>
   <button class="next-btn" onclick="startStory()">Start Story ➜</button>
-</div>
-
-<div class="slide">
-  <p class="quote">"In a world full of stars, you're the one that shines the brightest." ✨</p>
-  <button class="next-btn" onclick="nextSlide()">Next ❤️</button>
 </div>
 
 <div class="slide">
@@ -79,20 +71,19 @@
 </div>
 
 <div class="slide"><h1>With Youu Babe 💝</h1><img src="pic3.jpg.jpg"><p class="caption">"Every second with you is a blessing."</p><button class="next-btn" onclick="nextSlide()">More ❤️</button></div>
-<div class="slide"><h1>Never Forgot 🌸</h1><img src="pic4.jpg.JPEG"><p class="caption">"Keeping these memories locked in my heart."</p><button class="next-btn" onclick="nextSlide()">Next ❤️</button></div>
+<div class="slide"><h1>Never Forgot 🌸</h1><img src="pic4.jpg.JPEG"><p class="caption">"Keeping memories locked in my heart."</p><button class="next-btn" onclick="nextSlide()">Next ❤️</button></div>
 <div class="slide"><h1>Happiee Happieee 🎀</h1><img src="pic5.jpg.JPEG"><p class="caption">"To many more years of us."</p><button class="next-btn" onclick="nextSlide()">Wait! A Small Gift ➜</button></div>
 
 <div class="slide">
   <h1 style="font-size: 28px;">Pick A Gift, Manha! 🎁</h1>
   <div class="scatter-container" id="box-zone">
-    <div class="gift-box" style="top:8%; left:12%;" onclick="openBox(this, false)"></div>
-    <div class="gift-box" style="top:18%; left:68%;" onclick="openBox(this, false)"></div>
-    <div class="gift-box" style="top:48%; left:42%;" onclick="openBox(this, false)"></div>
-    <div class="gift-box" style="top:78%; left:12%;" onclick="openBox(this, true)"></div>
-    <div class="gift-box" style="top:82%; left:72%;" onclick="openBox(this, false)"></div>
+    <div class="gift-box" style="top:5%; left:10%;" onclick="openBox(this, false)"></div>
+    <div class="gift-box" style="top:15%; left:65%;" onclick="openBox(this, false)"></div>
+    <div class="gift-box" style="top:45%; left:40%;" onclick="openBox(this, false)"></div>
+    <div class="gift-box" style="top:75%; left:15%;" onclick="openBox(this, true)"></div> <div class="gift-box" style="top:80%; left:70%;" onclick="openBox(this, false)"></div>
   </div>
   <div id="cat-reveal" style="display:none; flex-direction:column; align-items:center;">
-    <img src="image.png.JPG" style="width:260px; border:none; box-shadow:none; border-radius:0;">
+    <img src="image.png.JPG" style="width:260px; border:none; box-shadow:none; border-radius:0; animation:none;">
     <p style="color:#ffd1dc; font-style:italic;">"A Lily for my favorite person!"</p>
     <button class="next-btn" onclick="grandBlast()">Final Surprise ❤️</button>
   </div>
@@ -120,34 +111,39 @@
   function makeWish(el, message) {
     const rect = el.getBoundingClientRect();
     const text = document.createElement('div');
-    text.className = 'wish-text'; text.innerHTML = '✨ ' + message; text.style.left = '50%'; text.style.top = rect.top + 'px';
+    text.className = 'wish-text'; text.innerHTML = '✨ ' + message; text.style.top = rect.top + 'px';
     document.body.appendChild(text);
-    confetti({ particleCount: 30, spread: 360, origin: { x: rect.left/window.innerWidth, y: rect.top/window.innerHeight }, colors: ['#ffd700', '#ffffff'], shapes: ['star'] });
+    confetti({ particleCount: 25, spread: 360, origin: { x: rect.left/window.innerWidth, y: rect.top/window.innerHeight }, colors: ['#ffd700'] });
     el.style.display = 'none'; setTimeout(() => text.remove(), 8000);
   }
 
   function createHeart(e) {
     const heart = document.createElement('div');
-    heart.className = 'tap-heart'; heart.innerHTML = '❤️';
-    heart.style.left = e.clientX + 'px'; heart.style.top = e.clientY + 'px';
-    document.body.appendChild(heart); setTimeout(() => heart.remove(), 1500);
+    heart.style.position = 'absolute'; heart.innerHTML = '❤️'; heart.style.left = e.clientX + 'px'; heart.style.top = e.clientY + 'px';
+    heart.style.color = '#ff69b4'; heart.style.pointerEvents = 'none'; heart.style.fontSize = '20px';
+    heart.style.animation = 'flyVerySlow 1.5s forwards'; document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 1500);
   }
 
   function openBox(el, isCorrect) {
-    if(isCorrect) { confetti({ particleCount: 150, spread: 70, origin: { y: 0.7 }, colors: ['#ff69b4', '#ffd700'] }); document.getElementById('box-zone').style.display = 'none'; document.getElementById('cat-reveal').style.display = 'flex'; }
-    else { el.style.opacity = "0.2"; el.style.pointerEvents = "none"; }
+    if(isCorrect) { 
+      confetti({ particleCount: 150, spread: 70, origin: { y: 0.7 }, colors: ['#ff69b4', '#ffd700'] });
+      document.getElementById('box-zone').style.display = 'none'; 
+      document.getElementById('cat-reveal').style.display = 'flex'; 
+    } else { el.style.opacity = "0.2"; el.style.pointerEvents = "none"; }
   }
 
   function grandBlast() { nextSlide(); var end = Date.now() + (5 * 1000); (function frame() { confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ffd700', '#ff69b4'] }); confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ffd700', '#ff69b4'] }); if (Date.now() < end) requestAnimationFrame(frame); }()); }
 
   setInterval(() => {
     const el = document.createElement('div'); el.className = 'falling'; el.innerHTML = ['🌸', '✨', '❤️'][Math.floor(Math.random()*3)];
-    el.style.left = Math.random() * 100 + 'vw'; el.style.fontSize = Math.random() * 10 + 10 + 'px'; el.style.animationDuration = Math.random() * 3 + 5 + 's';
+    el.style.left = Math.random() * 100 + 'vw'; el.style.fontSize = '15px'; el.style.animationDuration = Math.random() * 3 + 5 + 's';
     document.body.appendChild(el); setTimeout(() => el.remove(), 7000);
-  }, 400);
+  }, 450);
 </script>
 </body>
 </html>
+
 
 
 
