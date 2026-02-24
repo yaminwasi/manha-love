@@ -5,48 +5,95 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For My Manha 🎀💗</title>
 <style>
-  :root { --neon-pink: #ff69b4; --glow: rgba(255, 105, 180, 0.6); }
-  body { margin: 0; font-family: 'Georgia', serif; background: radial-gradient(circle at center, #1a0b1e 0%, #000 100%); color: white; text-align: center; overflow: hidden; }
+  :root { --neon-pink: #ff69b4; --glow: rgba(255, 105, 180, 0.6); --text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); }
   
-  .slide { display: none; height: 100vh; padding: 40px 20px; box-sizing: border-box; position: relative; z-index: 10; }
-  .active { display: flex; flex-direction: column; justify-content: center; align-items: center; animation: fadeIn 1.2s ease-in; }
-  @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+  body { 
+    margin: 0; 
+    font-family: 'Poppins', sans-serif; 
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%); 
+    color: white; 
+    text-align: center; 
+    overflow: hidden; 
+    height: 100vh;
+  }
 
-  h1 { font-size: 24px; color: var(--neon-pink); text-shadow: 0 0 15px var(--glow); margin-bottom: 10px; text-transform: uppercase; }
-  img { width: 100%; max-width: 280px; border-radius: 20px; border: 2px solid var(--neon-pink); box-shadow: 0 0 20px var(--glow); margin: 15px 0; }
+  body::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    opacity: 0.4;
+    z-index: 1;
+  }
 
-  .candle-container { display: flex; gap: 10px; margin: 20px 0; }
-  .candle { font-size: 35px; cursor: pointer; transition: 0.3s; }
-  .out { filter: grayscale(1); opacity: 0.3; }
+  .slide { display: none; height: 100vh; padding: 30px; box-sizing: border-box; position: relative; z-index: 10; flex-direction: column; justify-content: center; align-items: center; }
+  .active { display: flex; animation: slideUp 1s ease-out; }
+  
+  @keyframes slideUp { 
+    from { opacity: 0; transform: translateY(20px); } 
+    to { opacity: 1; transform: translateY(0); } 
+  }
 
-  .heart { position: absolute; color: var(--neon-pink); font-size: 20px; opacity: 0.6; animation: float 5s linear infinite; pointer-events: none; }
-  @keyframes float { from { transform: translateY(100vh) scale(1); opacity: 1; } to { transform: translateY(-10vh) scale(1.5); opacity: 0; } }
+  h1 { font-size: 22px; color: var(--neon-pink); text-shadow: var(--text-shadow); margin-bottom: 5px; letter-spacing: 2px; }
+  
+  img { 
+    width: 100%; 
+    max-width: 250px; 
+    border-radius: 30px; 
+    border: 2px solid rgba(255, 105, 180, 0.3); 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px var(--glow); 
+    margin: 15px 0; 
+  }
 
-  button.next-btn { margin-top: 20px; padding: 12px 35px; border: 2px solid var(--neon-pink); background: rgba(255,105,180,0.1); color: white; border-radius: 30px; cursor: pointer; font-weight: bold; box-shadow: 0 0 10px var(--glow); z-index: 20; }
+  .typewriter { font-size: 14px; color: #ffd1dc; opacity: 0.9; font-style: italic; letter-spacing: 1px; }
+
+  button.next-btn { 
+    margin-top: 25px; 
+    padding: 14px 45px; 
+    border: none; 
+    background: linear-gradient(45deg, #ff69b4, #ff1493); 
+    color: white; 
+    border-radius: 50px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4); 
+    text-transform: uppercase; 
+    transition: 0.3s; 
+  }
+  button.next-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255, 20, 147, 0.6); }
+
+  .floating-item { position: absolute; color: var(--neon-pink); animation: float 6s linear infinite; pointer-events: none; z-index: 5; }
+  @keyframes float { 
+    0% { transform: translateY(110vh) translateX(0) rotate(0deg); opacity: 0; } 
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-10vh) translateX(20px) rotate(360deg); opacity: 0; } 
+  }
+
+  .candle-container { display: flex; gap: 12px; margin: 15px 0; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 30px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1); }
+  .candle { font-size: 30px; cursor: pointer; transition: 0.3s; }
 </style>
 </head>
 <body>
 
-<audio id="bg-music" loop>
-  <source src="music.mp3.mp3" type="audio/mpeg">
-</audio>
+<audio id="bg-music" loop><source src="music.mp3.mp3" type="audio/mpeg"></audio>
 
 <div class="slide active">
   <h1>MY PRETTIEST GIRL</h1>
   <img src="pic1.jpg.JPEG">
-  <p>Happy Birthday MANHA 🖤</p>
-  <button class="next-btn" onclick="startStory()">Start Story ➜</button>
+  <div class="typewriter">To the one who owns my heart...</div>
+  <button class="next-btn" onclick="startStory()">Open My Heart ➜</button>
 </div>
 
 <div class="slide">
-  <h1>the day we met 🥹</h1>
+  <h1>THE DAY WE MET 🥹</h1>
   <img src="pic2.jpg.jpg">
-  <p>Every moment with you is a blessing.</p>
-  <button class="next-btn" onclick="nextSlide()">Next ❤️</button>
+  <div class="typewriter">A day I'll never forget.</div>
+  <button class="next-btn" onclick="nextSlide()">Continue ❤️</button>
 </div>
 
 <div class="slide">
-  <h1>Make a Wish! 🎂</h1>
+  <h1>MAKE A WISH, BABE 🎂</h1>
   <div class="candle-container">
     <span class="candle" onclick="blow(this)">🕯️</span>
     <span class="candle" onclick="blow(this)">🕯️</span>
@@ -54,35 +101,40 @@
     <span class="candle" onclick="blow(this)">🕯️</span>
     <span class="candle" onclick="blow(this)">🕯️</span>
   </div>
-  <p>Click to blow out the candles...</p>
-  <button class="next-btn" onclick="nextSlide()">Next ❤️</button>
+  <div class="typewriter">Close your eyes and wish...</div>
+  <button class="next-btn" onclick="nextSlide()">I Wished ❤️</button>
 </div>
 
 <div class="slide">
-  <h1>with youu babe 💝</h1>
+  <h1>WITH YOUU BABE 💝</h1>
   <img src="pic3.jpg.jpg">
-  <p>I cherish every second we spend together.</p>
-  <button class="next-btn" onclick="nextSlide()">Next ❤️</button>
+  <div class="typewriter">My favorite place is inside your hug.</div>
+  <button class="next-btn" onclick="nextSlide()">More ❤️</button>
 </div>
 
 <div class="slide">
-  <h1>the moment I never forgot 🌸</h1>
+  <h1>NEVER FORGOT 🌸</h1>
   <img src="pic4.jpg.JPEG">
-  <p>In your smile, I find my home.</p>
+  <div class="typewriter">Forever isn't long enough with you.</div>
   <button class="next-btn" onclick="nextSlide()">Next ❤️</button>
 </div>
 
 <div class="slide">
-  <h1>happiee happieee 🎀</h1>
+  <h1>HAPPIEE HAPPIEEE 🎀</h1>
   <img src="pic5.jpg.JPEG">
-  <p>Happy Times with my babe.</p>
-  <button class="next-btn" onclick="nextSlide()">Next ❤️</button>
+  <div class="typewriter">You are my sunshine.</div>
+  <button class="next-btn" onclick="nextSlide()">Final Surprise ❤️</button>
 </div>
 
 <div class="slide">
-  <h1 style="font-size: 26px; text-transform: none;">I will marry you soon 💗</h1>
-  <p>Always and Forever ❤️</p>
-  <button class="next-btn" onclick="location.reload()">See Again 🔄</button>
+  <h1>HAPPY BIRTHDAY MANHA 💗</h1>
+  <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 25px; border: 1px solid rgba(255,105,180,0.3); max-width: 320px; backdrop-filter: blur(10px);">
+    <p style="font-size: 15px; line-height: 1.6; font-style: italic; color: #ffd1dc;">
+      "i will marry you babe 💗 One day, we’ll sit side by side celebrating your birthday jaan, hearts entwined 💞, laughter dancing between us 💫, wrapped in the warmth of us 🫂❤️."
+    </p>
+  </div>
+  <h2 style="color: var(--neon-pink); font-size: 18px; margin-top: 20px; text-shadow: var(--text-shadow);">Forever & Always ❤️</h2>
+  <button class="next-btn" onclick="location.reload()">Replay 🔄</button>
 </div>
 
 <script>
@@ -91,7 +143,7 @@
   const music = document.getElementById('bg-music');
 
   function startStory() {
-    music.play().catch(e => console.log("Music interaction required"));
+    music.play();
     nextSlide();
   }
 
@@ -102,21 +154,25 @@
   }
 
   function blow(c) { 
-    c.classList.add('out'); 
     c.innerHTML = "💨"; 
+    c.style.filter = "grayscale(1)";
+    c.style.opacity = "0.5";
   }
 
   setInterval(() => {
-    const heart = document.createElement('div');
-    heart.classList.add('heart');
-    heart.innerHTML = '❤️';
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.animationDuration = Math.random() * 2 + 3 + 's';
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
-  }, 500);
+    const item = document.createElement('div');
+    item.classList.add('floating-item');
+    const icons = ['❤️','✨','🌸','💖','☁️'];
+    item.innerHTML = icons[Math.floor(Math.random()*icons.length)];
+    item.style.left = Math.random() * 100 + 'vw';
+    item.style.fontSize = (Math.random() * 10 + 15) + 'px';
+    item.style.animationDuration = (Math.random() * 3 + 4) + 's';
+    document.body.appendChild(item);
+    setTimeout(() => item.remove(), 6000);
+  }, 400);
 </script>
 </body>
 </html>
+
 
 
