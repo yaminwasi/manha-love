@@ -23,7 +23,6 @@
   .scatter-container { position: relative; width: 320px; height: 350px; margin: 10px auto; }
   .candle, .gift-box { position: absolute; cursor: pointer; transition: 0.4s ease; }
   
-  /* Final Improved Readable Wish Animation */
   .wish-text { 
     position: absolute; pointer-events: none; color: #ffffff; 
     font-family: 'Dancing Script', cursive; font-size: 22px; 
@@ -40,12 +39,16 @@
 
   .gift-box { width: 85px; height: 85px; background: url('https://cdn-icons-png.flaticon.com/512/4213/4213958.png') no-repeat center/contain; }
   .cat-reveal { display: none; flex-direction: column; align-items: center; animation: softPop 1s ease-out; }
-  @keyframes softPop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-
+  
   .blast-text { font-family: 'Dancing Script', cursive; font-size: 32px; color: #fff; animation: blurFade 2.5s ease-in-out; }
   @keyframes blurFade { 0% { opacity: 0; filter: blur(10px); } 100% { opacity: 1; filter: blur(0); } }
 
   .final-card { background: rgba(255, 255, 255, 0.03); padding: 30px; border-radius: 35px; border: 0.5px solid rgba(255, 105, 180, 0.15); max-width: 310px; backdrop-filter: blur(12px); margin: 20px 0; }
+  
+  /* Final Big Love Message */
+  .love-you-final { font-family: 'Dancing Script', cursive; font-size: 28px; color: var(--pink); text-shadow: 0 0 15px var(--pink); margin: 15px 0; animation: heartBeat 2s infinite; }
+  @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
   button.next-btn { margin-top: 20px; padding: 12px 45px; border: none; background: linear-gradient(45deg, #ff69b4, #ff1493); color: white; border-radius: 50px; cursor: pointer; font-size: 13px; font-weight: 600; }
   
   .spark { position: absolute; width: 3px; height: 3px; background: white; border-radius: 50%; pointer-events: none; animation: sparkAnim 1s linear forwards; }
@@ -84,30 +87,12 @@
     <span class="candle" style="top:75%; left:10%;" onclick="makeWish(this, 'wanna hug you')">🕯️</span>
     <span class="candle" style="top:85%; left:75%;" onclick="makeWish(this, 'wanna hold your hands')">🕯️</span>
   </div>
-  <p style="font-size: 11px; opacity: 0.5; margin-top: 10px;">Click the candles one by one...</p>
   <button class="next-btn" onclick="nextSlide()">I've Wished ❤️</button>
 </div>
 
-<div class="slide">
-  <h1>With Youu Babe 💝</h1>
-  <img src="pic3.jpg.jpg">
-  <p class="caption">"Every second with you is a blessing."</p>
-  <button class="next-btn" onclick="nextSlide()">More ❤️</button>
-</div>
-
-<div class="slide">
-  <h1>Never Forgot 🌸</h1>
-  <img src="pic4.jpg.JPEG">
-  <p class="caption">"Keeping these memories locked in my heart."</p>
-  <button class="next-btn" onclick="nextSlide()">Next ❤️</button>
-</div>
-
-<div class="slide">
-  <h1>Happiee Happieee 🎀</h1>
-  <img src="pic5.jpg.JPEG">
-  <p class="caption">"To many more years of us."</p>
-  <button class="next-btn" onclick="nextSlide()">Wait! A Small Gift ➜</button>
-</div>
+<div class="slide"><h1>With Youu Babe 💝</h1><img src="pic3.jpg.jpg"><p class="caption">"Every second with you is a blessing."</p><button class="next-btn" onclick="nextSlide()">More ❤️</button></div>
+<div class="slide"><h1>Never Forgot 🌸</h1><img src="pic4.jpg.JPEG"><p class="caption">"Keeping these memories locked in my heart."</p><button class="next-btn" onclick="nextSlide()">Next ❤️</button></div>
+<div class="slide"><h1>Happiee Happieee 🎀</h1><img src="pic5.jpg.JPEG"><p class="caption">"To many more years of us."</p><button class="next-btn" onclick="nextSlide()">Wait! A Small Gift ➜</button></div>
 
 <div class="slide">
   <h1 style="font-size: 28px;">Pick A Gift, Manha! 🎁</h1>
@@ -132,7 +117,8 @@
       "i will marry you babe 💗 One day, we’ll sit side by side celebrating your birthday jaan, hearts entwined 💞, laughter dancing between us 💫, wrapped in the warmth of us 🫂❤️."
     </p>
   </div>
-  <h2 style="font-family: 'Dancing Script', cursive; color: var(--pink); font-size: 19px; opacity: 0.8;">always yours.</h2>
+  <div class="love-you-final">I LOVE YOU SO MUCH BABE ❤️</div>
+  <h2 style="font-family: 'Dancing Script', cursive; color: var(--pink); font-size: 19px; opacity: 0.8; margin-bottom: 20px;">always yours.</h2>
   <button class="next-btn" onclick="location.reload()" style="background:transparent; border:1px solid rgba(255,255,255,0.2);">REPLAY</button>
 </div>
 
@@ -154,7 +140,7 @@
     text.className = 'wish-text';
     text.innerHTML = '✨ ' + message;
     text.style.left = '50%';
-    text.style.transform = 'translateX(-50%)'; // Centers the text for better readability
+    text.style.transform = 'translateX(-50%)';
     text.style.top = rect.top + 'px';
     document.body.appendChild(text);
 
@@ -165,7 +151,7 @@
     });
 
     el.style.display = 'none';
-    setTimeout(() => text.remove(), 8000); // Stays on screen for 8 seconds
+    setTimeout(() => text.remove(), 8000);
   }
 
   function openBox(el, isCorrect) {
@@ -180,7 +166,7 @@
 
   function grandBlast() {
     nextSlide();
-    var end = Date.now() + (4 * 1000);
+    var end = Date.now() + (5 * 1000);
     (function frame() {
       confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ffd700', '#ff69b4'] });
       confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ffd700', '#ff69b4'] });
@@ -200,6 +186,7 @@
 </script>
 </body>
 </html>
+
 
 
 
