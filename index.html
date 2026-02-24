@@ -97,29 +97,8 @@ button:hover {
   <p>And I promise… this is just the beginning of our forever.</p>
 </div>
 
-<script>
-let slides = document.querySelectorAll('.slide');
-let current = 0;
+  
 
-function nextSlide() {
-  slides[current].classList.remove('active');
-  current++;
-  slides[current].classList.add('active');
-}
-
-// Floating hearts
-setInterval(() => {
-  let heart = document.createElement("div");
-  heart.className = "heart";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.innerHTML = "❤";
-  document.body.appendChild(heart);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 5000);
-}, 800);
-</script>
   <div class="slide active">
     <h1>Happy Birthday Manha! 🎂</h1>
     <img src="IMG_0043.png" style="width: 100%; max-width: 400px;">
@@ -168,6 +147,16 @@ setInterval(() => {
     <p style="font-size: 20px; color: #ff69b4;">Always and Forever ❤️</p>
     <button onclick="location.reload()">See Again 🔄</button>
   </div>
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function nextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
