@@ -10,29 +10,31 @@
   :root { --pink: #ff69b4; --soft-pink: #fce4ec; --glow: rgba(255, 105, 180, 0.3); }
   body { margin: 0; font-family: 'Poppins', sans-serif; background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%); color: white; text-align: center; overflow: hidden; height: 100vh; }
 
+  /* New Starry Background CSS */
+  #star-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+  .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle var(--duration) infinite ease-in-out; }
+  @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 10px white; } }
+
   .slide { display: none; height: 100vh; padding: 20px; box-sizing: border-box; position: relative; z-index: 10; flex-direction: column; justify-content: center; align-items: center; }
   .active { display: flex; animation: slideReveal 1.5s ease-out; }
   @keyframes slideReveal { 0% { opacity: 0; filter: blur(15px); } 100% { opacity: 1; filter: blur(0); } }
 
-  h1 { font-family: 'Dancing Script', cursive; font-size: 36px; color: var(--pink); margin-bottom: 10px; font-weight: 400; }
+  h1 { font-family: 'Dancing Script', cursive; font-size: 36px; color: var(--pink); margin-bottom: 10px; font-weight: 400; text-shadow: 0 0 15px rgba(255, 105, 180, 0.5); }
   .quote { font-style: italic; font-size: 17px; color: var(--soft-pink); max-width: 80%; line-height: 1.6; font-weight: 300; }
   .caption { font-size: 14px; color: #ffd1dc; margin-top: 8px; font-style: italic; opacity: 0.9; letter-spacing: 0.5px; }
   
-  img { width: 100%; max-width: 240px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 15px 35px rgba(0,0,0,0.5); margin: 10px 0; }
+  img { width: 100%; max-width: 240px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 15px 35px rgba(0,0,0,0.5); margin: 10px 0; z-index: 11; }
 
-  .scatter-container { position: relative; width: 320px; height: 350px; margin: 10px auto; }
+  .scatter-container { position: relative; width: 320px; height: 350px; margin: 10px auto; z-index: 20; }
   .candle, .gift-box { position: absolute; cursor: pointer; transition: 0.4s ease; }
   
-  /* Typewriter Animation */
   .typewriter { overflow: hidden; border-right: .15em solid var(--pink); white-space: nowrap; margin: 0 auto; letter-spacing: .15em; animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite; max-width: fit-content; font-size: 13px; color: var(--soft-pink); }
   @keyframes typing { from { width: 0 } to { width: 100% } }
   @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--pink); } }
 
-  /* Falling Elements */
-  .falling { position: absolute; pointer-events: none; animation: fall linear infinite; z-index: 5; opacity: 0.5; }
+  .falling { position: absolute; pointer-events: none; animation: fall linear infinite; z-index: 5; opacity: 0.6; }
   @keyframes fall { from { transform: translateY(-10vh) rotate(0); } to { transform: translateY(110vh) rotate(360deg); } }
 
-  /* Readable Wish Animation */
   .wish-text { 
     position: absolute; pointer-events: none; color: #ffffff; 
     font-family: 'Dancing Script', cursive; font-size: 24px; 
@@ -50,16 +52,18 @@
   .gift-box { width: 85px; height: 85px; background: url('https://cdn-icons-png.flaticon.com/512/4213/4213958.png') no-repeat center/contain; }
   .cat-reveal { display: none; flex-direction: column; align-items: center; animation: softPop 1s ease-out; }
   
-  .love-you-final { font-family: 'Dancing Script', cursive; font-size: 30px; color: var(--pink); text-shadow: 0 0 15px var(--pink); margin: 15px 0; animation: heartBeat 2s infinite; }
+  .love-you-final { font-family: 'Dancing Script', cursive; font-size: 30px; color: var(--pink); text-shadow: 0 0 20px var(--pink); margin: 15px 0; animation: heartBeat 2s infinite; }
   @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
-  button.next-btn { margin-top: 20px; padding: 12px 45px; border: none; background: linear-gradient(45deg, #ff69b4, #ff1493); color: white; border-radius: 50px; cursor: pointer; font-size: 13px; font-weight: 600; box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3); }
+  button.next-btn { position: relative; z-index: 30; margin-top: 20px; padding: 12px 45px; border: none; background: linear-gradient(45deg, #ff69b4, #ff1493); color: white; border-radius: 50px; cursor: pointer; font-size: 13px; font-weight: 600; box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3); }
   
   .spark { position: absolute; width: 3px; height: 3px; background: white; border-radius: 50%; pointer-events: none; animation: sparkAnim 1s linear forwards; }
   @keyframes sparkAnim { 0% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--mx), var(--my)); } }
 </style>
 </head>
 <body onmousemove="createSpark(event)" ontouchmove="createSpark(event.touches[0])">
+
+<div id="star-container"></div>
 
 <audio id="bg-music" loop><source src="music.mp3.mp3" type="audio/mpeg"></audio>
 
@@ -85,11 +89,11 @@
 <div class="slide">
   <h1>Make A Wish, Jaan 🎂</h1>
   <div class="scatter-container">
-    <span class="candle" style="top:5%; left:15%;" onclick="makeWish(this, 'i love you')">🕯️</span>
-    <span class="candle" style="top:20%; left:75%;" onclick="makeWish(this, 'i want to marry you')">🕯️</span>
-    <span class="candle" style="top:50%; left:45%;" onclick="makeWish(this, 'Future mother of my kids')">🕯️</span>
-    <span class="candle" style="top:75%; left:10%;" onclick="makeWish(this, 'wanna hug you')">🕯️</span>
-    <span class="candle" style="top:85%; left:75%;" onclick="makeWish(this, 'wanna hold your hands')">🕯️</span>
+    <span class="candle" style="top:5%; left:15%; font-size:30px;" onclick="makeWish(this, 'i love you')">🕯️</span>
+    <span class="candle" style="top:20%; left:75%; font-size:30px;" onclick="makeWish(this, 'i want to marry you')">🕯️</span>
+    <span class="candle" style="top:50%; left:45%; font-size:30px;" onclick="makeWish(this, 'Future mother of my kids')">🕯️</span>
+    <span class="candle" style="top:75%; left:10%; font-size:30px;" onclick="makeWish(this, 'wanna hug you')">🕯️</span>
+    <span class="candle" style="top:85%; left:75%; font-size:30px;" onclick="makeWish(this, 'wanna hold your hands')">🕯️</span>
   </div>
   <button class="next-btn" onclick="nextSlide()">I've Wished ❤️</button>
 </div>
@@ -116,7 +120,7 @@
 
 <div class="slide">
   <div style="font-family: 'Dancing Script', cursive; font-size: 32px;">happiest birthday, baee</div>
-  <div class="final-card">
+  <div class="final-card" style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 20px; margin: 15px;">
     <p style="font-size: 13.5px; line-height: 1.8; font-style: italic; color: #fce4ec;">
       "i will marry you babe 💗 One day, we’ll sit side by side celebrating your birthday jaan, hearts entwined 💞, laughter dancing between us 💫, wrapped in the warmth of us 🫂❤️."
     </p>
@@ -127,6 +131,22 @@
 </div>
 
 <script>
+  // Dynamic Star Background Generation
+  const starContainer = document.getElementById('star-container');
+  const starCount = 100;
+
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 3 + 'px';
+    star.style.width = size;
+    star.style.height = size;
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
+    starContainer.appendChild(star);
+  }
+
   let currentSlide = 0;
   const slides = document.querySelectorAll('.slide');
   const music = document.getElementById('bg-music');
@@ -197,6 +217,7 @@
 </script>
 </body>
 </html>
+
 
 
 
