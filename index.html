@@ -17,25 +17,25 @@
   h1 { font-family: 'Dancing Script', cursive; font-size: 36px; color: var(--pink); margin-bottom: 10px; font-weight: 400; }
   .quote { font-style: italic; font-size: 17px; color: var(--soft-pink); max-width: 80%; line-height: 1.6; font-weight: 300; }
   .caption { font-size: 14px; color: #ffd1dc; margin-top: 8px; font-style: italic; opacity: 0.9; letter-spacing: 0.5px; }
-  .typewriter { font-size: 13px; color: var(--soft-pink); opacity: 0.7; font-style: italic; margin-top: 10px; }
   
   img { width: 100%; max-width: 240px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 15px 35px rgba(0,0,0,0.5); margin: 10px 0; }
 
   .scatter-container { position: relative; width: 320px; height: 350px; margin: 10px auto; }
   .candle, .gift-box { position: absolute; cursor: pointer; transition: 0.4s ease; }
   
-  /* Slower & Readable Wish Animation */
+  /* Final Improved Readable Wish Animation */
   .wish-text { 
-    position: absolute; pointer-events: none; color: #fff; 
-    font-family: 'Dancing Script', cursive; font-size: 18px; 
-    white-space: nowrap; animation: flySlow 5s forwards linear; 
-    z-index: 100; text-shadow: 0 0 10px var(--pink);
+    position: absolute; pointer-events: none; color: #ffffff; 
+    font-family: 'Dancing Script', cursive; font-size: 22px; 
+    font-weight: bold; white-space: nowrap; 
+    animation: flyVerySlow 8s forwards ease-out; 
+    z-index: 100; text-shadow: 0 0 12px #ff1493, 0 0 5px rgba(0,0,0,0.5);
   }
-  @keyframes flySlow {
-    0% { transform: translateY(0); opacity: 0; }
-    10% { opacity: 1; }
+  @keyframes flyVerySlow {
+    0% { transform: translateY(0); opacity: 0; filter: blur(5px); }
+    10% { opacity: 1; filter: blur(0); }
     80% { opacity: 1; filter: blur(0); }
-    100% { transform: translateY(-250px); opacity: 0; filter: blur(4px); }
+    100% { transform: translateY(-300px); opacity: 0; filter: blur(10px); }
   }
 
   .gift-box { width: 85px; height: 85px; background: url('https://cdn-icons-png.flaticon.com/512/4213/4213958.png') no-repeat center/contain; }
@@ -80,10 +80,11 @@
   <div class="scatter-container">
     <span class="candle" style="top:5%; left:15%;" onclick="makeWish(this, 'i love you')">🕯️</span>
     <span class="candle" style="top:20%; left:75%;" onclick="makeWish(this, 'i want to marry you')">🕯️</span>
-    <span class="candle" style="top:50%; left:45%;" onclick="makeWish(this, 'Future mother of my little ones')">🕯️</span>
+    <span class="candle" style="top:50%; left:45%;" onclick="makeWish(this, 'Future mother of my kids')">🕯️</span>
     <span class="candle" style="top:75%; left:10%;" onclick="makeWish(this, 'wanna hug you')">🕯️</span>
     <span class="candle" style="top:85%; left:75%;" onclick="makeWish(this, 'wanna hold your hands')">🕯️</span>
   </div>
+  <p style="font-size: 11px; opacity: 0.5; margin-top: 10px;">Click the candles one by one...</p>
   <button class="next-btn" onclick="nextSlide()">I've Wished ❤️</button>
 </div>
 
@@ -95,7 +96,7 @@
 </div>
 
 <div class="slide">
-  <h1>Never Forget 🌸</h1>
+  <h1>Never Forgot 🌸</h1>
   <img src="pic4.jpg.JPEG">
   <p class="caption">"Keeping these memories locked in my heart."</p>
   <button class="next-btn" onclick="nextSlide()">Next ❤️</button>
@@ -127,7 +128,7 @@
 <div class="slide">
   <div class="blast-text">happiest birthday, baee</div>
   <div class="final-card">
-    <p style="font-size: 13px; line-height: 1.8; font-weight: 300; font-style: italic; color: #fce4ec;">
+    <p style="font-size: 13.5px; line-height: 1.8; font-weight: 300; font-style: italic; color: #fce4ec;">
       "i will marry you babe 💗 One day, we’ll sit side by side celebrating your birthday jaan, hearts entwined 💞, laughter dancing between us 💫, wrapped in the warmth of us 🫂❤️."
     </p>
   </div>
@@ -152,18 +153,19 @@
     const text = document.createElement('div');
     text.className = 'wish-text';
     text.innerHTML = '✨ ' + message;
-    text.style.left = (rect.left - 50) + 'px';
+    text.style.left = '50%';
+    text.style.transform = 'translateX(-50%)'; // Centers the text for better readability
     text.style.top = rect.top + 'px';
     document.body.appendChild(text);
 
     confetti({ 
-      particleCount: 25, spread: 360, 
+      particleCount: 30, spread: 360, 
       origin: { x: rect.left/window.innerWidth, y: rect.top/window.innerHeight }, 
       colors: ['#ffd700', '#ffffff'], shapes: ['star'] 
     });
 
     el.style.display = 'none';
-    setTimeout(() => text.remove(), 5000);
+    setTimeout(() => text.remove(), 8000); // Stays on screen for 8 seconds
   }
 
   function openBox(el, isCorrect) {
@@ -198,6 +200,7 @@
 </script>
 </body>
 </html>
+
 
 
 
