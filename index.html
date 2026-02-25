@@ -39,12 +39,10 @@
   .gift-box { width: 85px; height: 85px; background: url('https://cdn-icons-png.flaticon.com/512/4213/4213958.png') no-repeat center/contain; cursor: pointer; position: absolute; }
   .cat-reveal { display: none; flex-direction: column; align-items: center; }
   
-  /* Voice Slide Pulse Animation */
   .voice-disc { width: 120px; height: 120px; background: rgba(255, 105, 180, 0.2); border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--pink); cursor: pointer; position: relative; margin-bottom: 20px; }
   .pulse { position: absolute; width: 100%; height: 100%; border: 2px solid var(--pink); border-radius: 50%; animation: heartPulse 2s infinite; opacity: 0; }
   @keyframes heartPulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.6); opacity: 0; } }
 
-  /* FINAL MESSAGE STYLES */
   .birthday-wish { font-family: 'Poppins', sans-serif; font-weight: 300; font-size: 16px; color: #ffd1dc; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; }
   .final-card { background: rgba(255,255,255,0.06); padding: 25px; border-radius: 30px; margin: 15px 0; border: 1px solid rgba(255, 105, 180, 0.2); backdrop-filter: blur(5px); }
   .final-text { font-family: 'Poppins', sans-serif; font-size: 14.5px; line-height: 1.7; font-weight: 400; color: #fce4ec; text-align: center; }
@@ -59,7 +57,7 @@
 <div id="star-container"></div>
 <div id="flash"></div>
 
-<audio id="bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
+<audio id="bg-music" loop><source src="music.mp3.mp3" type="audio/mpeg"></audio>
 
 <div class="slide active">
   <h1>My Prettiest Girl</h1>
@@ -100,7 +98,6 @@
 </div>
 
 <div class="slide"><h1>With Youu Babe 💝</h1><img src="pic3.jpg.jpg"><p class="caption">"Every second with you is a blessing."</p><button class="next-btn" onclick="nextSlide()">More ❤️</button></div>
-
 <div class="slide"><h1>Happiee Happieee 🎀</h1><img src="pic5.jpg.JPEG"><p class="caption">"To many more years of us."</p><button class="next-btn" onclick="nextSlide()">Wait! A Small Gift ➜</button></div>
 
 <div class="slide">
@@ -122,15 +119,12 @@
 <div class="slide" id="voice-slide">
   <h1>A Message From My Heart 🎙️</h1>
   <p style="color: #ffd1dc; font-style: italic; margin-bottom: 20px;">Close your eyes and listen...</p>
-  
   <div class="voice-disc" id="voiceBtn" onclick="playVoice()">
     <div class="pulse" id="pulse-ring"></div>
     <span style="font-size: 40px; z-index: 5;">🎙️</span>
   </div>
-  
   <p id="voice-status" style="font-size: 13px; color: var(--pink); font-weight: 600;">Tap to play</p>
-  <audio id="voice-note"><source src="voice.mp3" type="audio/mpeg"></audio>
-  
+  <audio id="voice-note"><source src="voice.mp3.mp3" type="audio/mpeg"></audio>
   <button class="next-btn" id="voice-next" onclick="nextSlide()" style="display:none;">See Final Message ❤️</button>
 </div>
 
@@ -146,7 +140,6 @@
 </div>
 
 <script>
-  // Stars Logic
   const starContainer = document.getElementById('star-container');
   for (let i = 0; i < 100; i++) {
     const star = document.createElement('div');
@@ -169,21 +162,19 @@
     slides[currentSlide].classList.add('active');
   }
 
-  // Voice Functionality
   function playVoice() {
     const vNote = document.getElementById('voice-note');
     const status = document.getElementById('voice-status');
     const pulseRing = document.getElementById('pulse-ring');
     const nextBtn = document.getElementById('voice-next');
 
-    music.pause(); // Music pause when voice plays
+    music.pause(); 
     vNote.play();
-    
     status.innerHTML = "Listening... 💗";
     pulseRing.style.display = "block";
     
     vNote.onended = function() {
-      music.play(); // Music resume when voice ends
+      music.play(); 
       status.innerHTML = "I hope you liked it! 🥹";
       pulseRing.style.display = "none";
       nextBtn.style.display = "block";
@@ -220,16 +211,6 @@
     } else { el.style.opacity = "0.2"; el.style.pointerEvents = "none"; }
   }
 
-  function grandBlast() {
-    nextSlide();
-    var end = Date.now() + (5 * 1000);
-    (function frame() {
-      confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ffd700', '#ff69b4'] });
-      confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ffd700', '#ff69b4'] });
-      if (Date.now() < end) requestAnimationFrame(frame);
-    }());
-  }
-
   function createSpark(e) {
     const spark = document.createElement('div');
     spark.style.position = 'absolute'; spark.style.width = '2px'; spark.style.height = '2px'; spark.style.background = 'white'; spark.style.borderRadius = '50%';
@@ -252,6 +233,7 @@
 </script>
 </body>
 </html>
+
 
 
 
